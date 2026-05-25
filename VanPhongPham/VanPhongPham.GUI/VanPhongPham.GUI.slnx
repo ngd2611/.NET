@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../VanPhongPham.BLL/VanPhongPham.BLL.csproj" Id="b15c8c48-63e3-4bb2-8831-7045cc91b407" />
+  <Project Path="../VanPhongPham.DAL/VanPhongPham.DAL.csproj" Id="f4685dc5-37b3-4446-807e-2bf953d81f16" />
+  <Project Path="VanPhongPham.GUI.csproj" Id="babf43a9-22d9-474e-8a18-6b08b802b9fc" />
+</Solution>
