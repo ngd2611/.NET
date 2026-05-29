@@ -14,9 +14,9 @@ namespace VanPhongPham.GUI
 {
     public partial class frmMain : Form
     {
-        private string CurrentUser; // Thêm biến lưu tài khoản đang đăng nhập
-        private string UserRole;
-        private string FullName;
+        internal string CurrentUser; // Thêm biến lưu tài khoản đang đăng nhập
+        internal string UserRole;
+        internal string FullName;
 
         // Cập nhật nhận thêm username từ frmDangNhap
         public frmMain(string username, string role, string name) : this()
@@ -109,6 +109,18 @@ namespace VanPhongPham.GUI
         }
 
         // ==================== PHẦN CỦA LƯƠNG ====================
+
+        private void btnBanHang_Click(object sender, EventArgs e)
+        {
+            frmBanHang frm = new frmBanHang();
+            OpenChildForm(frm);
+        }
+
+        private void btnNhapKho_Click(object sender, EventArgs e)
+        {
+            frmNhapKho frm = new frmNhapKho();
+            OpenChildForm(frm);
+        }
 
         private void btnDonHang_Click(object sender, EventArgs e)
         {

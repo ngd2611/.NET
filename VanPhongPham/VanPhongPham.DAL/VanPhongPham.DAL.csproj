@@ -69,11 +69,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BanHangDAL.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DanhMucDAL.cs" />
     <Compile Include="DonHangDAL.cs" />
     <Compile Include="Functions.cs" />
     <Compile Include="HoanTraDAL.cs" />
+    <Compile Include="NhapKhoDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SanPhamDAL.cs" />
     <Compile Include="TaiKhoanDAL.cs" />

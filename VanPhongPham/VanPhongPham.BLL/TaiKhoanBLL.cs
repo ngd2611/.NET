@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using System.Security.Cryptography; // Cần thêm namespace này
+using System.Security.Cryptography; 
 using System.Text;
 using VanPhongPham.DAL;
 
@@ -18,6 +18,13 @@ namespace VanPhongPham.BLL
                 for (int i = 0; i < bytes.Length; i++) builder.Append(bytes[i].ToString("x2"));
                 return builder.ToString();
             }
+        }
+
+        // --- Hàm Đăng nhập Mới ---
+        public DataTable KiemTraDangNhap(string username, string rawPassword)
+        {
+            string passwordHash = HashPasswordSHA256(rawPassword);
+            return dal.KiemTraDangNhap(username, passwordHash);
         }
 
         public DataTable LayDanhSach()
@@ -44,7 +51,6 @@ namespace VanPhongPham.BLL
             return "Xóa thất bại!";
         }
 
-        // Với cập nhật, nếu có đổi mật khẩu mới thì mã hoá, nếu rỗng thì truyền rỗng xuống DAL
         public string CapNhatTaiKhoan(int userId, string user, string rawPassword, string name, string email, string phone, string role)
         {
             if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(role))

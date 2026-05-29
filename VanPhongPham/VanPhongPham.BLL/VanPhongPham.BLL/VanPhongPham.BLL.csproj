@@ -61,12 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BanHangBLL.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DanhMucBLL.cs" />
     <Compile Include="DonHangBLL.cs" />
     <Compile Include="HoanTraBLL.cs" />
-    <Compile Include="NhapKhoBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SanPhamBLL.cs" />
     <Compile Include="TaiKhoanBLL.cs" />

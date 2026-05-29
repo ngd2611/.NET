@@ -180,6 +180,7 @@ namespace VanPhongPham.GUI
             this.btnNhapKho.TabIndex = 6;
             this.btnNhapKho.Text = "📥 Nhập kho";
             this.btnNhapKho.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnNhapKho.Click += new System.EventHandler(this.btnNhapKho_Click);
             // 
             // btnDonHang
             // 
@@ -225,6 +226,7 @@ namespace VanPhongPham.GUI
             this.btnBanHang.TabIndex = 4;
             this.btnBanHang.Text = "🛒 Bán hàng";
             this.btnBanHang.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnBanHang.Click += new System.EventHandler(this.btnBanHang_Click);
             // 
             // btnDanhMuc
             // 
