@@ -81,7 +81,7 @@ namespace VanPhongPham.GUI
             this.btnDangXuat.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
             this.btnDangXuat.HoverState.ForeColor = System.Drawing.Color.White;
             this.btnDangXuat.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnDangXuat.Location = new System.Drawing.Point(15, 571);
+            this.btnDangXuat.Location = new System.Drawing.Point(15, 516);
             this.btnDangXuat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDangXuat.Name = "btnDangXuat";
             this.btnDangXuat.Padding = new System.Windows.Forms.Padding(11, 0, 0, 0);
@@ -103,7 +103,7 @@ namespace VanPhongPham.GUI
             this.btnTaiKhoan.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
             this.btnTaiKhoan.HoverState.ForeColor = System.Drawing.Color.White;
             this.btnTaiKhoan.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnTaiKhoan.Location = new System.Drawing.Point(15, 519);
+            this.btnTaiKhoan.Location = new System.Drawing.Point(15, 466);
             this.btnTaiKhoan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTaiKhoan.Name = "btnTaiKhoan";
             this.btnTaiKhoan.Padding = new System.Windows.Forms.Padding(11, 0, 0, 0);
@@ -132,7 +132,6 @@ namespace VanPhongPham.GUI
             this.btnBaoCao.Padding = new System.Windows.Forms.Padding(11, 0, 0, 0);
             this.btnBaoCao.Size = new System.Drawing.Size(180, 46);
             this.btnBaoCao.TabIndex = 8;
-            this.btnBaoCao.Text = "📈 Báo cáo";
             this.btnBaoCao.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnBaoCao.Click += new System.EventHandler(this.btnBaoCao_Click);
             // 

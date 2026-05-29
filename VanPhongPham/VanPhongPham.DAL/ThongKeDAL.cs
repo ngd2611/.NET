@@ -11,7 +11,7 @@ namespace VanPhongPham.DAL
             string sql = @"
                 SELECT ISNULL(SUM(FinalAmount), 0) 
                 FROM [Order] 
-                WHERE Status = N'Hoàn thành' 
+                WHERE Status IN (N'Hoàn thành', N'Đã giao') 
                   AND CAST(OrderDate AS DATE) = CAST(GETDATE() AS DATE)";
             string result = Functions.GetFieldValues(sql);
             return string.IsNullOrEmpty(result) ? 0 : decimal.Parse(result);
@@ -60,7 +60,7 @@ namespace VanPhongPham.DAL
                     COUNT(OrderID) AS SoDon,
                     ISNULL(SUM(FinalAmount), 0) AS DoanhThu
                 FROM [Order]
-                WHERE Status = N'Hoàn thành'
+                WHERE Status IN (N'Hoàn thành', N'Đã giao')
                   AND CAST(OrderDate AS DATE) >= '{tuNgay:yyyy-MM-dd}'
                   AND CAST(OrderDate AS DATE) <= '{denNgay:yyyy-MM-dd}'
                 GROUP BY CAST(OrderDate AS DATE)
@@ -77,7 +77,7 @@ namespace VanPhongPham.DAL
                     COUNT(OrderID) AS SoDon,
                     ISNULL(SUM(FinalAmount), 0) AS DoanhThu
                 FROM [Order]
-                WHERE Status = N'Hoàn thành'
+                WHERE Status IN (N'Hoàn thành', N'Đã giao')
                   AND YEAR(OrderDate) = {nam}
                 GROUP BY MONTH(OrderDate)
                 ORDER BY Thang";
@@ -96,7 +96,7 @@ namespace VanPhongPham.DAL
                 FROM OrderDetail od
                 INNER JOIN Product p ON od.ProductID = p.ProductID
                 INNER JOIN [Order] o ON od.OrderID = o.OrderID
-                WHERE o.Status = N'Hoàn thành'
+                WHERE o.Status IN (N'Hoàn thành', N'Đã giao')
                 GROUP BY p.ProductCode, p.ProductName
                 ORDER BY SoLuongBan DESC";
             return Functions.GetDataToTable(sql);
@@ -140,7 +140,7 @@ namespace VanPhongPham.DAL
             string sql = @"
                 SELECT ISNULL(SUM(FinalAmount), 0) 
                 FROM [Order] 
-                WHERE Status = N'Hoàn thành' 
+                WHERE Status IN (N'Hoàn thành', N'Đã giao') 
                   AND MONTH(OrderDate) = MONTH(GETDATE())
                   AND YEAR(OrderDate) = YEAR(GETDATE())";
             string result = Functions.GetFieldValues(sql);

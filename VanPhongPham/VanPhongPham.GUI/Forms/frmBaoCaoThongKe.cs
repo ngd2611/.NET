@@ -2,9 +2,7 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using LiveCharts;
-using LiveCharts.Wpf;
-using LiveCharts.WinForms;
+using System.Windows.Forms.DataVisualization.Charting;
 using VanPhongPham.BLL;
 
 namespace VanPhongPham.GUI.Forms
@@ -12,6 +10,7 @@ namespace VanPhongPham.GUI.Forms
     public partial class frmBaoCaoThongKe : Form
     {
         private ThongKeBLL thongKeBLL = new ThongKeBLL();
+        private bool isLoading = false;
 
         public frmBaoCaoThongKe()
         {
@@ -21,6 +20,8 @@ namespace VanPhongPham.GUI.Forms
         // ==================== FORM LOAD ====================
         private void frmBaoCaoThongKe_Load(object sender, EventArgs e)
         {
+            isLoading = true;
+
             // Nạp ComboBox năm (5 năm gần đây)
             cboNam.Items.Clear();
             int currentYear = DateTime.Now.Year;
@@ -29,6 +30,8 @@ namespace VanPhongPham.GUI.Forms
                 cboNam.Items.Add(y.ToString());
             }
             cboNam.SelectedIndex = 0;
+
+            isLoading = false;
 
             // Load tất cả dữ liệu
             LoadAllData();
@@ -75,15 +78,30 @@ namespace VanPhongPham.GUI.Forms
 
             DataTable dt = thongKeBLL.LayDoanhThuTheoThang(nam);
 
-            // Tạo mảng 12 tháng
-            ChartValues<double> values = new ChartValues<double>();
-            string[] labels = new string[12];
+            // Reset hoàn toàn chart
+            chartDoanhThu.Series.Clear();
+            chartDoanhThu.Legends.Clear();
+            chartDoanhThu.Titles.Clear();
 
+            // Title
+            chartDoanhThu.Titles.Add("Doanh thu năm " + nam);
+            chartDoanhThu.Titles[0].Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+
+            // Legend
+            var legend = new Legend("Legend1");
+            legend.Docking = Docking.Bottom;
+            chartDoanhThu.Legends.Add(legend);
+
+            // Series cột
+            Series series = new Series("Doanh thu (VNĐ)");
+            series.ChartType = SeriesChartType.Column;
+            series.Color = Color.FromArgb(41, 128, 185);
+            series.Font = new Font("Microsoft Sans Serif", 7F);
+
+            double maxValue = 0;
             for (int i = 1; i <= 12; i++)
             {
-                labels[i - 1] = "T" + i;
                 double revenue = 0;
-
                 foreach (DataRow row in dt.Rows)
                 {
                     if (Convert.ToInt32(row["Thang"]) == i)
@@ -92,37 +110,35 @@ namespace VanPhongPham.GUI.Forms
                         break;
                     }
                 }
-                values.Add(revenue);
+                int idx = series.Points.AddXY("T" + i, revenue);
+                if (revenue > 0)
+                {
+                    series.Points[idx].IsValueShownAsLabel = true;
+                    series.Points[idx].LabelFormat = "N0";
+                    if (revenue > maxValue) maxValue = revenue;
+                }
             }
 
-            cartesianChart1.Series = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "Doanh thu (VNĐ)",
-                    Values = values,
-                    Fill = new System.Windows.Media.SolidColorBrush(
-                        System.Windows.Media.Color.FromRgb(41, 128, 185)),
-                    MaxColumnWidth = 40
-                }
-            };
+            chartDoanhThu.Series.Add(series);
 
-            cartesianChart1.AxisX.Clear();
-            cartesianChart1.AxisX.Add(new Axis
-            {
-                Title = "Tháng",
-                Labels = labels,
-                Separator = new Separator { Step = 1 }
-            });
+            // Cấu hình trục
+            var area = chartDoanhThu.ChartAreas[0];
+            area.AxisX.Title = "Tháng";
+            area.AxisX.Interval = 1;
+            area.AxisY.Title = "Doanh thu (VNĐ)";
+            area.AxisY.LabelStyle.Format = "N0";
+            area.AxisY.Minimum = 0;
+            if (maxValue > 0)
+                area.AxisY.Maximum = maxValue * 1.2; // Thêm 20% cho dễ nhìn
+            else
+                area.AxisY.Maximum = double.NaN; // Auto
+            area.AxisX.MajorGrid.LineColor = Color.LightGray;
+            area.AxisY.MajorGrid.LineColor = Color.LightGray;
+            area.RecalculateAxesScale();
 
-            cartesianChart1.AxisY.Clear();
-            cartesianChart1.AxisY.Add(new Axis
-            {
-                Title = "Doanh thu (VNĐ)",
-                LabelFormatter = value => value.ToString("N0")
-            });
-
-            cartesianChart1.LegendLocation = LegendLocation.Bottom;
+            // Ép vẽ lại
+            chartDoanhThu.Invalidate();
+            chartDoanhThu.Update();
         }
 
         // ==================== BIỂU ĐỒ TRÒN: TRẠNG THÁI ĐƠN HÀNG ====================
@@ -130,34 +146,46 @@ namespace VanPhongPham.GUI.Forms
         {
             DataTable dt = thongKeBLL.LayThongKeTrangThai();
 
-            SeriesCollection series = new SeriesCollection();
+            chartTrangThai.Series.Clear();
+            chartTrangThai.Legends.Clear();
 
-            // Màu sắc cho từng trạng thái
-            System.Windows.Media.SolidColorBrush[] colors = new System.Windows.Media.SolidColorBrush[]
+            // Legend
+            var legend = new Legend("Legend1");
+            legend.Docking = Docking.Right;
+            chartTrangThai.Legends.Add(legend);
+
+            Series series = new Series("TrangThai");
+            series.ChartType = SeriesChartType.Pie;
+            series.IsValueShownAsLabel = true;
+            series.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
+            series["PieLabelStyle"] = "Outside";
+            series.Label = "#PERCENT{P0}";
+
+            // Màu cho từng trạng thái
+            Color[] colors = new Color[]
             {
-                new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(243, 156, 18)),   // Chờ xử lý - Vàng cam
-                new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(41, 128, 185)),   // Đang giao - Xanh dương
-                new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(52, 152, 219)),   // Đã giao - Xanh nhạt
-                new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(39, 174, 96)),    // Hoàn thành - Xanh lá
-                new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(231, 76, 60)),    // Hủy - Đỏ
+                Color.FromArgb(243, 156, 18),  // Chờ xử lý - Vàng cam
+                Color.FromArgb(41, 128, 185),  // Đang giao - Xanh dương
+                Color.FromArgb(52, 152, 219),  // Đã giao - Xanh nhạt
+                Color.FromArgb(39, 174, 96),   // Hoàn thành - Xanh lá
+                Color.FromArgb(231, 76, 60),   // Hủy - Đỏ
             };
 
             int colorIdx = 0;
             foreach (DataRow row in dt.Rows)
             {
-                series.Add(new PieSeries
-                {
-                    Title = row["TrangThai"].ToString(),
-                    Values = new ChartValues<int> { Convert.ToInt32(row["SoLuong"]) },
-                    DataLabels = true,
-                    LabelPoint = chartPoint => $"{chartPoint.Y} ({chartPoint.Participation:P0})",
-                    Fill = colorIdx < colors.Length ? colors[colorIdx] : null
-                });
+                int idx = series.Points.AddXY(
+                    row["TrangThai"].ToString(),
+                    Convert.ToInt32(row["SoLuong"]));
+
+                if (colorIdx < colors.Length)
+                    series.Points[idx].Color = colors[colorIdx];
+
+                series.Points[idx].LegendText = row["TrangThai"].ToString() + " (" + row["SoLuong"].ToString() + ")";
                 colorIdx++;
             }
 
-            pieChart1.Series = series;
-            pieChart1.LegendLocation = LegendLocation.Right;
+            chartTrangThai.Series.Add(series);
         }
 
         // ==================== TOP SẢN PHẨM BÁN CHẠY ====================
@@ -204,5 +232,15 @@ namespace VanPhongPham.GUI.Forms
         {
             LoadAllData();
         }
+
+        // ==================== ĐỔI NĂM → TỰ ĐỘNG LOAD LẠI ====================
+        private void cboNam_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!isLoading && cboNam.SelectedIndex >= 0)
+            {
+                LoadChartDoanhThu();
+            }
+        }
     }
 }
+

@@ -126,7 +126,7 @@ namespace VanPhongPham.GUI.Forms
             }
             if (dgvSanPham.Columns.Contains("SoLuongTra"))
             {
-                dgvSanPham.Columns["SoLuongTra"].HeaderText = "SL Trả ✏️";
+                dgvSanPham.Columns["SoLuongTra"].HeaderText = "SL Trả";
                 dgvSanPham.Columns["SoLuongTra"].ReadOnly = false; // Cho phép sửa
                 dgvSanPham.Columns["SoLuongTra"].DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 230);
             }

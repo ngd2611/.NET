@@ -42,15 +42,34 @@ namespace VanPhongPham.GUI
 
             currentChildForm = childForm;
 
+            // Khóa layout để child form không resize parent
+            this.SuspendLayout();
+            pnlMain.SuspendLayout();
+
             // Cấu hình form con để nhúng vào panel
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.AutoScaleMode = AutoScaleMode.None;
             childForm.Dock = DockStyle.Fill;
 
             // Xóa control cũ trong panel và thêm form mới
             pnlMain.Controls.Clear();
             pnlMain.Controls.Add(childForm);
             childForm.Show();
+
+            // Resume layout trên panel, nhưng KHÔNG trigger layout trên frmMain
+            pnlMain.ResumeLayout(true);
+            this.ResumeLayout(false);
+
+            // Ép maximize ngay
+            this.WindowState = FormWindowState.Maximized;
+
+            // Ép maximize LẦN NỮA sau khi TẤT CẢ event (LiveCharts/Guna2) xử lý xong
+            this.BeginInvoke(new Action(() =>
+            {
+                if (this.WindowState != FormWindowState.Maximized)
+                    this.WindowState = FormWindowState.Maximized;
+            }));
         }
 
         private void btnSanPham_Click(object sender, EventArgs e)
@@ -61,6 +80,9 @@ namespace VanPhongPham.GUI
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            // Khóa kích thước tối thiểu = kích thước maximize hiện tại
+            this.MinimumSize = this.Size;
+
             MessageBox.Show("Quyền hiện tại nhận được là: " + UserRole);
             try
             {
