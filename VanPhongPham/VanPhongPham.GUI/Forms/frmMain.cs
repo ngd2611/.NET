@@ -167,5 +167,20 @@ namespace VanPhongPham.GUI
             frmBaoCaoThongKe frm = new frmBaoCaoThongKe();
             OpenChildForm(frm);
         }
+
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                this.Hide();
+
+                frmDangNhap frm = new frmDangNhap();
+                frm.ShowDialog();
+
+                this.Close();
+            }
+         }
+
     }
 }

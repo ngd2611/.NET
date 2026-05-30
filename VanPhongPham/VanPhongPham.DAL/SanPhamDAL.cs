@@ -7,16 +7,14 @@ namespace VanPhongPham.DAL
 {
     public class SanPhamDAL
     {
-        // ✅ [FIX #12] Đảm bảo kết nối luôn mở trước mọi thao tác
+        
         private void KiemTraKetNoi()
         {
             if (Functions.Conn == null || Functions.Conn.State != ConnectionState.Open)
                 Functions.Connect();
         }
 
-        // ==================== LẤY DANH SÁCH ====================
-
-        // 1. Lấy danh sách sản phẩm đầy đủ (kết hợp Category và Brand)
+       
         public DataTable LayDanhSach()
         {
             KiemTraKetNoi();
@@ -40,7 +38,6 @@ namespace VanPhongPham.DAL
             return Functions.GetDataToTable(sql);
         }
 
-        // ✅ [FIX #3/#10] Lấy danh mục đang active — để GUI/BLL đổ ComboBox đúng luồng
         public DataTable LayDanhSachDanhMucActive()
         {
             KiemTraKetNoi();
@@ -48,7 +45,6 @@ namespace VanPhongPham.DAL
                 "SELECT CategoryID, CategoryName FROM Category WHERE IsActive = 1 ORDER BY CategoryName");
         }
 
-        // ✅ [FIX #3/#10] Lấy thương hiệu đang active — để GUI/BLL đổ ComboBox đúng luồng
         public DataTable LayDanhSachThuongHieuActive()
         {
             KiemTraKetNoi();
@@ -56,9 +52,6 @@ namespace VanPhongPham.DAL
                 "SELECT BrandID, BrandName FROM Brand WHERE IsActive = 1 ORDER BY BrandName");
         }
 
-        // ==================== THÊM ====================
-
-        // 2. Thêm sản phẩm — ✅ [FIX #7] Dùng SqlParameter chống SQL Injection
         public void Them(string maSP, string tenSP, string danhMucID, string thuongHieuID,
                          string donVi, string giaNhap, string giaBan, string tonKho,
                          string moTa, bool isActive)
@@ -86,9 +79,7 @@ namespace VanPhongPham.DAL
             );
         }
 
-        // ==================== SỬA ====================
-
-        // 3. Sửa sản phẩm — ✅ [FIX #7] Dùng SqlParameter chống SQL Injection
+     
         public void Sua(string maSP, string tenSP, string danhMucID, string thuongHieuID,
                         string donVi, string giaNhap, string giaBan, string tonKho,
                         string moTa, bool isActive)
@@ -121,9 +112,7 @@ namespace VanPhongPham.DAL
             );
         }
 
-        // ==================== XÓA ====================
 
-        // 4. Xóa sản phẩm — ✅ [FIX #7] Dùng SqlParameter
         public void Xoa(string maSP)
         {
             KiemTraKetNoi();
@@ -133,9 +122,7 @@ namespace VanPhongPham.DAL
             );
         }
 
-        // ==================== TÌM KIẾM ====================
-
-        // 5. Tìm kiếm đa điều kiện — ✅ [FIX #7] Dùng SqlParameter chống SQL Injection
+     
         public DataTable TimKiem(string tuKhoa, string tenDanhMuc, string giaMax, string tonKho)
         {
             KiemTraKetNoi();

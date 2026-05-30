@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic; // BẮT BUỘC PHẢI THÊM DÒNG NÀY ĐỂ DÙNG BỘ LỌC
+using System.Collections.Generic; 
 using System.Data;
 using System.Windows.Forms;
 using VanPhongPham.BLL;
@@ -9,7 +9,7 @@ namespace VanPhongPham.GUI.Forms
 {
     public partial class frmQuanLySanPham : Form
     {
-        // ------------------ KHAI BÁO BIẾN ------------------
+        
         private SanPhamBLL sanPhamBLL = new SanPhamBLL();
         DataTable tblSP;
         private bool isThem = false;
@@ -19,7 +19,7 @@ namespace VanPhongPham.GUI.Forms
             InitializeComponent();
         }
 
-        // ------------------ SỰ KIỆN LOAD FORM ------------------
+        
         private void frmQuanLySanPham_Load(object sender, EventArgs e)
         {
             DongDieuKhien();
@@ -27,10 +27,11 @@ namespace VanPhongPham.GUI.Forms
             Load_ComboBoxThuongHieu();
             Load_ComboBoxLocDanhMuc();
             Load_DataGridView();
+            cboDanhMuc.SelectedIndex = -1;
+            cboThuongHieu.SelectedIndex = -1;
 
             if (cboTrangThai.Items.Count > 0) cboTrangThai.SelectedIndex = 0;
 
-            // ĐÂY LÀ CHỖ QUAN TRỌNG NHẤT:
             // Cứ mỗi khi người dùng gõ hoặc chọn vào 4 ô này, nó tự chạy hàm ThucHienLoc
             txtTimKiem.TextChanged += (s, args) => ThucHienLoc();
             txtLocGia.TextChanged += (s, args) => ThucHienLoc();
@@ -245,9 +246,7 @@ namespace VanPhongPham.GUI.Forms
             DongDieuKhien();
         }
 
-        // =======================================================================
-        // BỘ LỌC NÂNG CAO ĐA ĐIỀU KIỆN (MỚI THAY THẾ)
-        // =======================================================================
+     
         private void ThucHienLoc()
         {
             string tuKhoa = txtTimKiem.Text.Trim();
@@ -255,7 +254,6 @@ namespace VanPhongPham.GUI.Forms
             string gia = txtLocGia.Text.Trim();
             string ton = txtLocTonKho.Text.Trim();
 
-            // Gọi trực tiếp qua BLL (đúng yêu cầu đề bài)
             DataTable dt = sanPhamBLL.TimKiemSanPham(tuKhoa, danhMuc, gia, ton);
             dgvSanPham.DataSource = dt;
         }

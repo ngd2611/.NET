@@ -23,6 +23,7 @@ namespace VanPhongPham.GUI.Forms
             DongDieuKhien();
             Load_DataGridView();
             Load_ComboBoxCha();
+            cboDanhMucCha.SelectedIndex = -1;
             if (cboTrangThai.Items.Count > 0) cboTrangThai.SelectedIndex = 0;
         }
 
@@ -97,9 +98,10 @@ namespace VanPhongPham.GUI.Forms
             }
         }
 
-        private void btnBoQua_Click(object sender, EventArgs e) { XoaTrangCacO(); DongDieuKhien(); }
-
-        // ================== CÁC HÀM XỬ LÝ GIAO DIỆN ==================
+        private void btnBoQua_Click(object sender, EventArgs e) 
+        { 
+            XoaTrangCacO(); DongDieuKhien(); 
+        }
         private void DongDieuKhien() { txtTenDanhMuc.Enabled = false; txtMoTa.Enabled = false; cboDanhMucCha.Enabled = false; cboTrangThai.Enabled = false; btnThemMoi.Enabled = true; btnCapNhat.Enabled = false; btnXoaBo.Enabled = false; btnLuu.Enabled = false; btnBoQua.Enabled = false; }
         private void MoDieuKhien() { txtTenDanhMuc.Enabled = true; txtMoTa.Enabled = true; cboDanhMucCha.Enabled = true; cboTrangThai.Enabled = true; }
         private void XoaTrangCacO() { txtTenDanhMuc.Text = ""; txtMoTa.Text = ""; cboDanhMucCha.SelectedIndex = -1; if (cboTrangThai.Items.Count > 0) cboTrangThai.SelectedIndex = 0; }

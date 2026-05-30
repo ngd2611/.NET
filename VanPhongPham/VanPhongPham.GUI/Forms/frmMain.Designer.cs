@@ -89,6 +89,7 @@ namespace VanPhongPham.GUI
             this.btnDangXuat.TabIndex = 10;
             this.btnDangXuat.Text = "🚪 Đăng xuất";
             this.btnDangXuat.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnDangXuat.Click += new System.EventHandler(this.btnDangXuat_Click);
             // 
             // btnTaiKhoan
             // 

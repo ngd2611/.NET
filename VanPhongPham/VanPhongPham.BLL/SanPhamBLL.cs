@@ -14,10 +14,10 @@ namespace VanPhongPham.BLL
             return sanPhamDAL.LayDanhSach();
         }
 
-        // 2. Thêm sản phẩm (Có kiểm tra lỗi)
+        
         public void ThemSanPham(string maSP, string tenSP, string danhMucID, string thuongHieuID, string donVi, string giaNhap, string giaBan, string tonKho, string moTa, bool isActive)
         {
-            // Kiểm tra nghiệp vụ (BA) cơ bản: Bắt buộc nhập Mã và Tên
+            
             if (string.IsNullOrWhiteSpace(maSP))
             {
                 throw new Exception("Mã sản phẩm không được để trống!");

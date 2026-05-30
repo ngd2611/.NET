@@ -1,13 +1,13 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-// ✅ [FIX #5] Đã xóa: using System.Data.Entity — không dùng Entity Framework ở đây
+
 
 namespace VanPhongPham.DAL
 {
     public class DanhMucDAL
     {
-        // ✅ [FIX #12] Đảm bảo kết nối luôn mở trước mọi thao tác
+      
         private void KiemTraKetNoi()
         {
             if (Functions.Conn == null || Functions.Conn.State != ConnectionState.Open)
@@ -22,7 +22,6 @@ namespace VanPhongPham.DAL
                 "SELECT CategoryID, CategoryName, Description, ParentID, IsActive FROM Category");
         }
 
-        // ✅ [FIX #9/#11] Lấy danh mục đang active — để BLL đổ ComboBox đúng luồng
         public DataTable LayDanhSachActive()
         {
             KiemTraKetNoi();
@@ -30,7 +29,7 @@ namespace VanPhongPham.DAL
                 "SELECT CategoryID, CategoryName FROM Category WHERE IsActive = 1 ORDER BY CategoryName");
         }
 
-        // 2. Thêm danh mục — ✅ [FIX #7] Dùng SqlParameter chống SQL Injection
+       
         public void Them(string categoryName, string description, string parentID, bool isActive)
         {
             KiemTraKetNoi();
@@ -46,7 +45,7 @@ namespace VanPhongPham.DAL
             );
         }
 
-        // 3. Sửa danh mục — ✅ [FIX #7] Dùng SqlParameter chống SQL Injection
+   
         public void Sua(int categoryID, string categoryName, string description, string parentID, bool isActive)
         {
             KiemTraKetNoi();
@@ -67,7 +66,7 @@ namespace VanPhongPham.DAL
             );
         }
 
-        // 4. Xóa danh mục — ✅ [FIX #7] Dùng SqlParameter
+      
         public void Xoa(int categoryID)
         {
             KiemTraKetNoi();
@@ -77,7 +76,7 @@ namespace VanPhongPham.DAL
             );
         }
 
-        // 5. Tìm kiếm — ✅ [FIX #7] Dùng SqlParameter chống SQL Injection
+     
         public DataTable TimKiem(string tuKhoa)
         {
             KiemTraKetNoi();
