@@ -42,12 +42,14 @@ namespace VanPhongPham.GUI
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlMain = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlSidebar.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlSidebar
             // 
             this.pnlSidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
+            this.pnlSidebar.Controls.Add(this.guna2HtmlLabel3);
             this.pnlSidebar.Controls.Add(this.btnDangXuat);
             this.pnlSidebar.Controls.Add(this.btnTaiKhoan);
             this.pnlSidebar.Controls.Add(this.btnBaoCao);
@@ -303,12 +305,12 @@ namespace VanPhongPham.GUI
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(170)))), ((int)(((byte)(184)))));
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(15, 60);
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(15, 46);
             this.guna2HtmlLabel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(268, 28);
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(200, 25);
             this.guna2HtmlLabel2.TabIndex = 1;
-            this.guna2HtmlLabel2.Text = "Admin · Nguyễn Văn A";
+            this.guna2HtmlLabel2.Text = "Role";
             // 
             // guna2HtmlLabel1
             // 
@@ -316,7 +318,7 @@ namespace VanPhongPham.GUI
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
             this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.White;
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(15, 25);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(15, 11);
             this.guna2HtmlLabel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             this.guna2HtmlLabel1.Size = new System.Drawing.Size(268, 31);
@@ -331,6 +333,19 @@ namespace VanPhongPham.GUI
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(899, 761);
             this.pnlMain.TabIndex = 1;
+            // 
+            // guna2HtmlLabel3
+            // 
+            this.guna2HtmlLabel3.AutoSize = false;
+            this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(170)))), ((int)(((byte)(184)))));
+            this.guna2HtmlLabel3.Location = new System.Drawing.Point(15, 74);
+            this.guna2HtmlLabel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(200, 25);
+            this.guna2HtmlLabel3.TabIndex = 11;
+            this.guna2HtmlLabel3.Text = "Tên";
             // 
             // frmMain
             // 
@@ -367,5 +382,6 @@ namespace VanPhongPham.GUI
         private Guna.UI2.WinForms.Guna2Button btnDanhMuc;
         private Guna.UI2.WinForms.Guna2Button btnSanPham;
         private Guna.UI2.WinForms.Guna2Button btnDangXuat;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
     }
 }

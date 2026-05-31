@@ -19,11 +19,15 @@ namespace VanPhongPham.GUI
         internal string FullName;
 
         // Cập nhật nhận thêm username từ frmDangNhap
-        public frmMain(string username, string role, string name) : this()
+        public frmMain(string username, string role, string name) 
         {
+            InitializeComponent();
             CurrentUser = username;
             UserRole = role;
             FullName = name;
+
+            guna2HtmlLabel2.Text = $"{UserRole}";
+            guna2HtmlLabel3.Text = $"{FullName}";
         }
         private Form currentChildForm = null;
         public frmMain()
